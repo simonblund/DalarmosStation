@@ -22,22 +22,40 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Set up application to start using the Dalarmos suite"
-            tools:layout_constraintTop_creator="1"
-            tools:layout_constraintRight_creator="1"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="54dp"
-            tools:layout_constraintLeft_creator="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="100dp"
+            android:text="SET UP APP TO START USING THE DALARMOS SUITE"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textIsSelectable="false"
+            android:textStyle="bold"
+            android:typeface="monospace"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
     </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setup"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="188dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
