@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">DalStation</string>
+    <string name="server_address">Server Address</string>
+</resources>
