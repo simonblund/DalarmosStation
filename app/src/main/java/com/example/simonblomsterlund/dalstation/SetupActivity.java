@@ -170,6 +170,7 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
             editor.putString("serverurl", server);
             editor.putString("alarmphone", alarmphone);
             editor.commit();
+
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
