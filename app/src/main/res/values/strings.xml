@@ -18,4 +18,5 @@
         completions."
     </string>
     <string name="prompt_server">insert server url</string>
+    <string name="prompt_alarmPhone">Telephone number for alarms</string>
 </resources>
