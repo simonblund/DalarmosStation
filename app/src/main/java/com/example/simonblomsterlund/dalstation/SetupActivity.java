@@ -3,6 +3,8 @@ package com.example.simonblomsterlund.dalstation;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -35,6 +37,8 @@ import java.util.List;
  */
 public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -49,9 +53,15 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // UI references.
     private AutoCompleteTextView mEmailView;
+    private EditText mServer;
+    private EditText mAlarmPhone;
+
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("dalStatPrefs", MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPref.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,10 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_setup);
         setupActionBar();
         // Set up the login form.
+
+        mServer = (EditText) findViewById(R.id.server);
+        mAlarmPhone = (EditText) findViewById(R.id.alarmPhone);
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -84,6 +98,8 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+
     }
 
     private void populateAutoComplete() {
@@ -118,6 +134,9 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String server = mServer.getText().toString();
+        String alarmphone = mAlarmPhone.getText().toString();
+
 
         boolean cancel = false;
         View focusView = null;
@@ -148,6 +167,9 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+            editor.putString("serverurl", server);
+            editor.putString("alarmphone", alarmphone);
+            editor.commit();
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
