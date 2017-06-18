@@ -7,9 +7,11 @@
     tools:context="com.example.simonblomsterlund.dalstation.MainActivity">
 
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
@@ -21,41 +23,136 @@
         tools:layout_constraintLeft_creator="1"
         android:layout_marginBottom="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:layout_weight="0.24">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/alarmphone_set_to"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textIsSelectable="false"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintRight_creator="1"
+                    tools:layout_constraintTop_creator="1" />
+
+                <TextView
+                    android:id="@+id/text_alarmphoneSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="1"
+                    android:text="not set up yet"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textIsSelectable="false"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintRight_creator="1"
+                    tools:layout_constraintTop_creator="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="145dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="7dp"
+                    android:text="@string/server_set_to"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textIsSelectable="false"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintRight_creator="1"
+                    tools:layout_constraintTop_creator="1" />
+
+                <TextView
+                    android:id="@+id/text_serverSet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="1"
+                    android:text="not set up yet"
+                    android:textAlignment="viewStart"
+                    android:textAllCaps="true"
+                    android:textIsSelectable="false"
+                    android:textStyle="bold"
+                    android:typeface="monospace"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_constraintRight_creator="1"
+                    tools:layout_constraintTop_creator="1" />
+
+            </TableRow>
+
+        </TableLayout>
 
         <TextView
-            android:id="@+id/textView_splashScreen"
-            android:layout_width="0dp"
+            android:id="@+id/textView_setupDalarmos"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="0.24"
             android:text="@string/splashScreen_description"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textIsSelectable="false"
             android:textStyle="bold"
             android:typeface="monospace"
+            android:visibility="gone"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="1" />
-    </android.support.constraint.ConstraintLayout>
 
-    <Button
-        android:id="@+id/openSetup"
-        style="@android:style/Widget.Holo.Light.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="188dp"
-        android:text="@string/setup"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        <Button
+            android:id="@+id/openSetup"
+            style="@android:style/Widget.Holo.Light.Button"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="300dp"
+            android:layout_weight="1"
+            android:text="@string/setup"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView_setupDalarmos"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1"
+            tools:layout_constraintTop_creator="1" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

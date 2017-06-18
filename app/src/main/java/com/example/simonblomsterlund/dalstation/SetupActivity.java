@@ -60,8 +60,7 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("dalStatPrefs", MODE_PRIVATE);
-    SharedPreferences.Editor editor = sharedPref.edit();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +166,8 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
+            SharedPreferences sharedPref = getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("serverurl", server);
             editor.putString("alarmphone", alarmphone);
             editor.commit();

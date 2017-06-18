@@ -3,8 +3,12 @@ package com.example.simonblomsterlund.dalstation;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.widget.Toast;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by simonblomsterlund on 16/06/2017.
@@ -12,6 +16,10 @@ import android.telephony.SmsMessage;
 
 public class MessageReceiver extends BroadcastReceiver {
     @Override
+
+
+
+
     public void onReceive(Context context, Intent intent) {
         // get the Bundle map from the Intent parameter to onReceive()
         Bundle bundle = intent.getExtras();
@@ -34,6 +42,12 @@ public class MessageReceiver extends BroadcastReceiver {
             smsSender += msgs[i].getOriginatingAddress();
             smsBody += msgs[i].getMessageBody();
             timestamp += msgs[i].getTimestampMillis();
+        }
+        SharedPreferences sharedPref = context.getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
+        String alarmphone = sharedPref.getString("alarmphone", "");
+
+        if (smsSender == alarmphone){
+            Toast.makeText(context, smsBody + alarmphone, Toast.LENGTH_LONG);
         }
     }
 }

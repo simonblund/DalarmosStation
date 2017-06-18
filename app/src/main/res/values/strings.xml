@@ -19,4 +19,6 @@
     </string>
     <string name="prompt_server">insert server url</string>
     <string name="prompt_alarmPhone">Telephone number for alarms</string>
+    <string name="alarmphone_set_to">Inc. Alarm no.</string>
+    <string name="server_set_to">Server url</string>
 </resources>
