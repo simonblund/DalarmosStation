@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -45,9 +46,10 @@ public class MessageReceiver extends BroadcastReceiver {
         }
         SharedPreferences sharedPref = context.getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
         String alarmphone = sharedPref.getString("alarmphone", "");
+        intent.putExtra("sender", smsSender);
+        intent.putExtra("body", smsBody);
+        intent.putExtra("timestamp", timestamp);
 
-        if (smsSender == alarmphone){
-            Toast.makeText(context, smsBody + alarmphone, Toast.LENGTH_LONG);
-        }
+        Log.e("SMS", "e");
     }
 }

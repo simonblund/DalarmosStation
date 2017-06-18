@@ -18,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,6 +97,14 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        Button mSettingsSaveButton = (Button) findViewById(R.id.settings_save_button);
+        mSettingsSaveButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveInformation();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -115,6 +125,29 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
+    /**
+     * Attempts to save the information in the form.
+     * If there are form errors (invalid address, missing fields, etc.), the
+     * errors are presented and no actual save attempt is made.
+     */
+    private void saveInformation(){
+        String server = mServer.getText().toString();
+        String alarmphone = mAlarmPhone.getText().toString();
+        SharedPreferences sharedPref = getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if(Patterns.WEB_URL.matcher(server).matches() && Patterns.PHONE.matcher(alarmphone).matches()){
+            editor.putString("serverurl", server);
+            editor.putString("alarmphone", alarmphone);
+            editor.commit();
+            Toast.makeText(this, "Settings saved <3", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
+
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -133,8 +166,9 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        String server = mServer.getText().toString();
-        String alarmphone = mAlarmPhone.getText().toString();
+
+
+
 
 
         boolean cancel = false;
@@ -166,11 +200,7 @@ public class SetupActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            SharedPreferences sharedPref = getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("serverurl", server);
-            editor.putString("alarmphone", alarmphone);
-            editor.commit();
+
 
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);

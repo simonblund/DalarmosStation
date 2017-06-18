@@ -4,7 +4,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "com.example.simonblomsterlund.dalstation"
+        applicationId 'com.example.simonblomsterlund.dalstation'
         minSdkVersion 22
         targetSdkVersion 22
         versionCode 1
@@ -16,6 +16,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    productFlavors {
     }
 }
 
@@ -30,5 +32,4 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-
 }
