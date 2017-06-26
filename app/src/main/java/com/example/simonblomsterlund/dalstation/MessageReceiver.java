@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,40 +17,38 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class MessageReceiver extends BroadcastReceiver {
-    @Override
 
 
+        public static final String SMS_BUNDLE = "pdus";
 
+        public void onReceive(Context context, Intent intent) {
+            Bundle intentExtras = intent.getExtras();
 
-    public void onReceive(Context context, Intent intent) {
-        // get the Bundle map from the Intent parameter to onReceive()
-        Bundle bundle = intent.getExtras();
+            if (intentExtras != null) {
+                Object[] sms = (Object[]) intentExtras.get(SMS_BUNDLE);
 
-// get the SMS received
-        Object[] pdus = (Object[]) bundle.get("pdus");
-        assert pdus != null;
-        SmsMessage[] msgs = new SmsMessage[pdus.length];
+                String smsMessageStr = "";
+                for (int i = 0; i < sms.length; ++i) {
 
-        //sms sender phone
-        String smsSender = "";
+                    SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[0]);
 
-        //body of received sms
-        String smsBody = "";
+                    String smsBody = smsMessage.getMessageBody().toString();
+                    String address = smsMessage.getOriginatingAddress();
 
-        long timestamp = 0L;
+                    smsMessageStr += address + "\n";
+                    smsMessageStr += smsBody + "\n";
+                }
 
-        for (int i = 0; i < msgs.length; i++) {
-            msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
-            smsSender += msgs[i].getOriginatingAddress();
-            smsBody += msgs[i].getMessageBody();
-            timestamp += msgs[i].getTimestampMillis();
+                Toast.makeText(context, "Message Received!", Toast.LENGTH_SHORT).show();
+
+                if (MainActivity.active) {
+
+                } else {
+                    Intent i = new Intent(context, MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                }
+            }
         }
-        SharedPreferences sharedPref = context.getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
-        String alarmphone = sharedPref.getString("alarmphone", "");
-        intent.putExtra("sender", smsSender);
-        intent.putExtra("body", smsBody);
-        intent.putExtra("timestamp", timestamp);
 
-        Log.e("SMS", "e");
-    }
 }
