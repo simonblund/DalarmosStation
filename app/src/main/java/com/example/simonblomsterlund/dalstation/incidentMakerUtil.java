@@ -47,14 +47,15 @@ public class incidentMakerUtil{
                 details,
                 time
         );
-        sendNetworkRequest(incident, context);
+
 
         Toast.makeText(context, "incident created" + new SimpleDateFormat("MM.dd.HH.mm").format(new Date()), Toast.LENGTH_SHORT).show();
+        sendNetworkRequest(incident, context);
     }
     private void sendNetworkRequest(Incident incident, Context context){
         final Context innerContext = context;
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("")
+                .baseUrl("http://dalarmos.io/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit = builder.build();
 
@@ -69,7 +70,7 @@ public class incidentMakerUtil{
 
             @Override
             public void onFailure(Call<Incident> call, Throwable t) {
-                Toast.makeText(innerContext, "Incident failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(innerContext, "Incident failed" + t, Toast.LENGTH_SHORT).show();
             }
         });
     }

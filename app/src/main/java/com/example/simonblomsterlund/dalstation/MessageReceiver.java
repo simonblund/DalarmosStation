@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.os.Message;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
@@ -23,6 +24,9 @@ public class MessageReceiver extends BroadcastReceiver {
 
 
         public void onReceive(Context context, Intent intent) {
+            SharedPreferences sharedPref = context.getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
+            String alarmphone = sharedPref.getString("alarmphone", "");
+
             Bundle intentExtras = intent.getExtras();
 
             if (intentExtras != null) {
@@ -39,16 +43,16 @@ public class MessageReceiver extends BroadcastReceiver {
                     String smsBody = smsMessage.getMessageBody().toString();
                     String sender = smsMessage.getOriginatingAddress();
 
-                    message += sender;
+                    smsMessageSender += sender;
                     message += smsBody;
                 }
 
-                if (smsMessageSender == "04040") {
+                if (alarmphone.equals(smsMessageSender)) {
                     incidentMakerUtil incident = new incidentMakerUtil();
                     incident.parametrise(message, context);
                 }
                 else {
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, message + "from else on receiver", Toast.LENGTH_SHORT).show();
                 }
 
 
