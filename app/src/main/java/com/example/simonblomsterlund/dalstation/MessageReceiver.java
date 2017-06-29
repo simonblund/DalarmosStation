@@ -10,7 +10,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by simonblomsterlund on 16/06/2017.
@@ -21,25 +21,41 @@ public class MessageReceiver extends BroadcastReceiver {
 
         public static final String SMS_BUNDLE = "pdus";
 
+
         public void onReceive(Context context, Intent intent) {
             Bundle intentExtras = intent.getExtras();
 
             if (intentExtras != null) {
                 Object[] sms = (Object[]) intentExtras.get(SMS_BUNDLE);
 
-                String smsMessageStr = "";
+                String message = "";
+                String smsMessageSender = "";
+
+
                 for (int i = 0; i < sms.length; ++i) {
 
                     SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[0]);
 
                     String smsBody = smsMessage.getMessageBody().toString();
-                    String address = smsMessage.getOriginatingAddress();
+                    String sender = smsMessage.getOriginatingAddress();
 
-                    smsMessageStr += address + "\n";
-                    smsMessageStr += smsBody + "\n";
+                    message += sender;
+                    message += smsBody;
                 }
 
-                Toast.makeText(context, "Message Received!", Toast.LENGTH_SHORT).show();
+                if (smsMessageSender == "04040") {
+                    incidentMakerUtil incident = new incidentMakerUtil();
+                    incident.parametrise(message, context);
+                }
+                else {
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
+
 
                 if (MainActivity.active) {
 

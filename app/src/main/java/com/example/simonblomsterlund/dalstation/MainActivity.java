@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("dalStatPrefs", Context.MODE_PRIVATE);
         String alarmphone = sharedPref.getString("alarmphone", "");
         String serverurl = sharedPref.getString("serverurl", "");
 
